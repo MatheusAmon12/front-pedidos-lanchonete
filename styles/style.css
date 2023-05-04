@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Josefin+Sans:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+}
+
+body{
+    background-color: #292827;
+}
+
+.forms{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 500px;
+    width: 90vw;
+    padding: 30px 10px;
+    border-radius: 8px;
+    background-color: #4CB944;
+}
+
+
+.forms > form{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.forms > form h1{
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: 600;
+    color: #292827;
+}
+
+.forms > form button{
+    height: 45px;
+    font-size: 1.1em;
+    font-weight: 500;
+    background-color: #C66300;
+    color: #F5EFE6;
+    transition: all 500ms;
+}
+
+.forms > form button:hover{
+    background-color: #FF8800;
+    color: #C66300;
+    cursor: pointer;
+    scale: 1.05;
+}
+
+.forms > form div{
+    margin-bottom: 25px;
+}
+
+.forms > form div label{
+    display: block;
+    color: #292827;
+    margin-bottom: 5px;
+    font-size: 1.3em;  
+}
+
+.forms > form div input{
+    outline: none;
+    color: #C66300;
+    padding-left: 15px;
+    font-size: 1.1em; 
+    height: 35px; 
+}
+
+.forms > form div input::placeholder{
+    opacity: 0.4;
+}
+
+.forms > form div input:focus{
+    outline-color: #C66300;
+}
+
+.forms > form div input, .forms > form button{
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+}
+
+.result{
+    position: absolute;
+    bottom: 5%;
+    left: -100%;
+
+    background-color: red;
+    color: white;
+    width: 200px;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: .8em;
+    transition: all 700ms;
+}
