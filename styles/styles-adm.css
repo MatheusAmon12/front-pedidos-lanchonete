@@ -1,0 +1,160 @@
+
+.alert{
+    position: absolute;
+    bottom: 5%;
+    left: -100%;
+
+    background-color: red;
+    color: white;
+    width: 200px;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: .8em;
+    transition: all 700ms;
+}
+
+.dashboard{
+    background-color: #292827;
+}
+
+.buttons{
+    margin: 30px auto 30px auto;
+    width: 80vw;
+    max-width: 600px;
+    padding: 70px 0;
+    background-color: #111111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.buttons .icon{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.buttons div{
+    width: 100%;
+}
+
+.list{
+    list-style: none;
+    text-align: left;
+    padding: 10px 0 15px 10px;
+    color: #F5EFE6;
+}
+
+.list li{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.list a{
+    text-decoration: none;
+    color: red;
+    opacity: .5;
+    transition: all 500ms;
+}
+
+.list a:hover{
+    opacity: 1;
+}
+
+.buttons div > div > button{
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    display: block;
+    padding: 15px 0;
+    width: 100%;
+    text-align: center;
+    color: #F5EFE6;
+    font-size: 1.2em;
+}
+
+.buttons div button:hover{
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+}
+
+.colorFixed{
+    scale: 1.5;
+    text-decoration: underline;
+}
+
+.buttons div > div{
+    width: 100%;
+    text-align: center;
+    background-color: #111111;
+}
+
+.buttons div > div > button{
+    padding: 15px;
+    background-color: transparent;
+    border: none;
+    color: #F5EFE6;
+}
+
+.buttons > span{
+    margin: 15px 0 40px 0;
+    color: #FF8800;
+}
+
+/*Formulário de cadastro de produtos*/
+#formRegisterProduct span{
+    color: #FF8800;
+}
+
+#formRegisterProduct{
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 200px;
+    width: 90%;
+    max-width: 350px;
+}
+
+#formRegisterProduct div label{
+    display: block;
+    color: #FF8800;
+    margin-bottom: 5px;
+}
+
+#formRegisterProduct div input, #formRegisterProduct button{
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    padding-left: 10px;
+}
+
+#formRegisterProduct div input:focus{
+    outline: 2px solid #FF8800;
+}
+
+#formRegisterProduct div input::placeholder{
+    opacity: .5;
+}
+
+#formRegisterProduct button{
+    background-color: transparent;
+    border: 1px solid #FF8800;
+    color: #FF8800;
+    cursor: pointer;
+    transition: all 500ms;
+}
+
+#formRegisterProduct button:hover{
+    background-color: #FF8800;
+    color: #F5EFE6;
+}

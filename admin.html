@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+    <!--Formulário de login do administrador-->
     <section class="forms">
         <form method="POST" id="form">
             <h1>Login</h1>
@@ -25,9 +26,74 @@
         </form>
     </section>
 
-    <div class="result">
+    <!--Alerta de erro de login-->
+    <div class="alert">
         <span>Usuário e/ou senha incorreto. Tente novamente!</span>
     </div>
+
+    <!--Painel de controle do administrador-->
+    <section class="dashboard">
+        <section class="buttons">
+            <div class="icon">
+
+            </div>
+
+            <span>Lanchonete Fast Food</span>
+
+            <!--Listagem de clientes-->
+            <div>
+                <div>
+                    <button class="btnListClients">Listar clientes</button>
+                    <div class="clients notVisible">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Listagem de pedidos-->
+            <div>
+                <div>
+                    <button class="btnListRequests">Listar pedidos</button>
+                    <div class="requests notVisible">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Listagem de produtos-->
+            <div>
+                <div>
+                    <button class="btnListProducts">Listar produtos</button>
+                    <div class="productsList notVisible">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Cadastro de Produtos-->
+            <div>
+                <div>
+                    <button class="btnRegisterProducts">Registrar produto</button>
+                    <div class="productsRegister notVisible">
+                        <form method="POST" id="formRegisterProduct">
+                            <div>
+                                <label for="iuser">Nome: </label>
+                                <input type="text" name="name" id="iname" required placeholder="Ex.: X-Bacon" autofocus>
+                            </div>
+                
+                            <div>
+                                <label for="ipassword">Preço: </label>
+                                <input type="number" name="price" id="iprice" required placeholder="Ex.: 22,50" step=".01">
+                            </div>
+                
+                            <button type="submit">Entrar</button>
+                            <span class="alertSuccess"></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
     <script src="script/admin.js"></script>
 </body>
 </html>

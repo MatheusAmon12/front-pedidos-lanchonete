@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Josefin+Sans:wght@300;400;500;600&display=swap');
 
+@import url('styles-adm.css');
+
 *{
     margin: 0;
     padding: 0;
@@ -13,6 +15,7 @@ body{
 }
 
 .forms{
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -89,16 +92,6 @@ body{
     border: none;
 }
 
-.result{
-    position: absolute;
-    bottom: 5%;
-    left: -100%;
-
-    background-color: red;
-    color: white;
-    width: 200px;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: .8em;
-    transition: all 700ms;
+.notVisible{
+    display: none;
 }
