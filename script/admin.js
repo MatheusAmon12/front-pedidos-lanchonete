@@ -5,10 +5,12 @@ const alertSuccess= document.querySelector('.alertSuccess')
 const form = document.querySelector('#form')
 const sectionForms = document.querySelector('.forms')
 const buttonsCategory = document.querySelectorAll('.buttonsCategory')
+const sectionDashboard = document.querySelector('.dashboard')
 const btnListClients = document.querySelector('.btnListClients')
 const btnListRequests = document.querySelector('.btnListRequests')
 const btnListProducts = document.querySelector('.btnListProducts')
 const btnRegisterProducts = document.querySelector('.btnRegisterProducts')
+const btnLogout = document.querySelector('.btnLogout')
 const divClients = document.querySelector('.clients')
 const divRequests = document.querySelector('.requests')
 const divProductsList = document.querySelector('.productsList')
@@ -21,9 +23,11 @@ form.onsubmit = (e) => {
     e.preventDefault()
     if(validation(user, password)){
         sectionForms.classList.add('notVisible')
+        sectionDashboard.classList.remove('notVisible')
     }
 }
 
+//Validação do formulário de login do Administrador
 function validation(user, password){
     if (user.value != 'admin' || password.value != '12345678'){
         alert.innerHTML = `
@@ -39,6 +43,7 @@ function validation(user, password){
     return true
 }
 
+//Listando clientes cadastrados
 btnListClients.onclick = () => {
     if (divClients.classList.contains('notVisible')){
         divClients.classList.remove('notVisible')
@@ -69,6 +74,7 @@ btnListClients.onclick = () => {
 
 }
 
+//Listando pedidos feitos no Postman
 btnListRequests.onclick = () => {
     if (divRequests.classList.contains('notVisible')){
         divRequests.classList.remove('notVisible')
@@ -100,6 +106,7 @@ btnListRequests.onclick = () => {
         })
 }
 
+//Listando produtos cadastrados
 btnListProducts.onclick = () => {
     if (divProductsList.classList.contains('notVisible')){
         divProductsList.classList.remove('notVisible')
@@ -109,32 +116,10 @@ btnListProducts.onclick = () => {
         btnListProducts.classList.remove('colorFixed')
     }
 
-    fetch(api + '/produtos')
-        .then(response => {
-            return response.json().then(data => {
-                let html = ''
-                let price = ''
-
-                data.forEach(product => {
-                    price = product.price.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})
-                    html += `
-                    <div>
-                        <ul class="list">
-                            <li>Nome: ${product.name}</li>
-                            <li>Preço: ${price}</li>
-                            <li>
-                                <a href="#" class="btnRemove" data-id="${product._id}">[Excluir]</a>
-                            </li>
-                        </ul>
-                    </div>
-                    `
-                })
-                divProductsList.innerHTML = html
-                addEventClickRemove()
-            })
-        })
+    generateListProducts()
 }
 
+//Cadastrando produtos
 btnRegisterProducts.onclick = () => {
     if (divProductRegister.classList.contains('notVisible')){
         divProductRegister.classList.remove('notVisible')
@@ -176,6 +161,15 @@ btnRegisterProducts.onclick = () => {
     }
 }
 
+//Botão para logout
+btnLogout.onclick = () => {
+    sectionForms.classList.remove('notVisible')
+    sectionDashboard.classList.add('notVisible')
+    form.reset()
+    location.reload()
+}
+
+//Adicionando evento de click no botão de remoção de produto
 function addEventClickRemove(){
     const btnsRemove = document.querySelectorAll('.btnRemove')
 
@@ -189,10 +183,38 @@ function addEventClickRemove(){
                 .then(response => {
                     return response.json().then(data => {
                         if(data.message === 'success'){
-                            location.reload()
+                            generateListProducts()
                         }
                     })
                 })
         }
     })
+}
+
+//Gerando a lista via GET dos produtos cadastrados
+function generateListProducts(){
+    fetch(api + '/produtos')
+        .then(response => {
+            return response.json().then(data => {
+                let html = ''
+                let price = ''
+
+                data.forEach(product => {
+                    price = product.price.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})
+                    html += `
+                    <div>
+                        <ul class="list">
+                            <li>Nome: ${product.name}</li>
+                            <li>Preço: ${price}</li>
+                            <li>
+                                <a href="#" class="btnRemove" data-id="${product._id}">[Excluir]</a>
+                            </li>
+                        </ul>
+                    </div>
+                    `
+                })
+                divProductsList.innerHTML = html
+                addEventClickRemove()
+            })
+        })
 }

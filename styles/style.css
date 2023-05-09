@@ -15,7 +15,6 @@ body{
 }
 
 .forms{
-    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -25,7 +24,7 @@ body{
     width: 90vw;
     padding: 30px 10px;
     border-radius: 8px;
-    background-color: #4CB944;
+    background-color: #111111;
 }
 
 
@@ -40,14 +39,14 @@ body{
     margin-bottom: 20px;
     font-size: 2.2em;
     font-weight: 600;
-    color: #292827;
+    color: #FF8800;
 }
 
 .forms > form button{
     height: 45px;
     font-size: 1.1em;
     font-weight: 500;
-    background-color: #C66300;
+    background-color: #FF8800;
     color: #F5EFE6;
     transition: all 500ms;
 }
@@ -65,7 +64,7 @@ body{
 
 .forms > form div label{
     display: block;
-    color: #292827;
+    color: #FF8800;
     margin-bottom: 5px;
     font-size: 1.3em;  
 }
@@ -90,6 +89,13 @@ body{
     width: 100%;
     border-radius: 20px;
     border: none;
+}
+
+/*Alerta de cadastro realizado com sucesso do cadastro de clientes*/
+.registerSuccess{
+    color: #FF8800;
+    text-align: center;
+    margin-top: 15px;
 }
 
 .notVisible{

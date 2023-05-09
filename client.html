@@ -9,30 +9,34 @@
 </head>
 <body>
     <section class="forms">
-        <form action="#" method="POST">
+        <form method="POST" id="formRegisterClient">
             <h1>Cadastro</h1>
             <div>
                 <label for="iname">Nome: </label>
-                <input type="text" name="name" id="iname">
+                <input type="text" name="name" id="iname" autofocus placeholder="Digite nome e sobrenome" required>
             </div>
 
             <div>
                 <label for="iemail">E-mail: </label>
-                <input type="email" name="email" id="iemail">
+                <input type="email" name="email" id="iemail" placeholder="Digite seu email" required>
             </div>
 
             <div>
                 <label for="itel">Telefone: </label>
-                <input type="tel" name="tel" id="itel">
+                <input type="tel" name="tel" id="itel" placeholder="Digite seu contato sem símbolos" required>
             </div>
 
             <div>
                 <label for="iadress">Endereço: </label>
-                <input type="text" name="adress" id="iadress">
+                <input type="text" name="adress" id="iadress" placeholder="Rua/Avenida, nº, bairro">
             </div>
 
             <button type="submit">Cadastrar</button>
         </form>
+        <section class="registerSuccess">
+            
+        </section>
     </section>
+    <script src="script/client.js"></script>
 </body>
 </html>
