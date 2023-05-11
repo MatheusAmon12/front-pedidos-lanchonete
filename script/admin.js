@@ -53,25 +53,7 @@ btnListClients.onclick = () => {
         btnListClients.classList.remove('colorFixed')
     }
 
-    fetch(api + '/clientes')
-    .then(response => {
-        return response.json().then(data => {
-            let html = ''
-            data.forEach(client => {
-                html  += `
-                <div class="res">
-                    <ul class="list">
-                        <li>Nome: ${client.name}</li>
-                        <li>E-mail: ${client.email}</li>
-                        <li>Endereço: ${client.adress}</li>
-                    </ul>
-                </div>
-                `
-            })
-            divClients.innerHTML = html
-        })
-    })
-
+    generateListClients()
 }
 
 //Listando pedidos feitos no Postman
@@ -84,26 +66,7 @@ btnListRequests.onclick = () => {
         btnListRequests.classList.remove('colorFixed')
     }
 
-    fetch(api + '/pedidos')
-        .then(response => {
-            return response.json().then(data => {
-                let html = ''
-                data.forEach(request => {
-                    html += `
-                    <div>
-                        <ul class="list">
-                            <li>Cliente (id): ${request.idClient}</li>
-                            <li>Produto (id): ${request.idProduct}</li>
-                            <li>Data: ${request.date}</li>
-                            <li>Status: ${request.status}</li>
-                        </ul>
-                    </div>
-                    `
-                })
-                divRequests.innerHTML = html
-                
-            })
-        })
+    generateListRequests()
 }
 
 //Listando produtos cadastrados
@@ -169,9 +132,32 @@ btnLogout.onclick = () => {
     location.reload()
 }
 
+//Adicionando evento no select
+function addOnSelect(status, id){
+    fetch(api + `/pedidos/${id}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            status
+        })
+    })
+        .then(response => {
+            return response.json().then(data => {
+                console.log(data.message)
+                if(data.message === 'success'){
+                    generateListRequests()
+                } else{
+                    alert('Não foi possível alterar o status do pedido!')
+                }
+            })
+        })
+}
+
 //Adicionando evento de click no botão de remoção de produto
-function addEventClickRemove(){
-    const btnsRemove = document.querySelectorAll('.btnRemove')
+function addEventClickRemoveProduct(){
+    const btnsRemove = document.querySelectorAll('.btnRemoveProduct')
 
     btnsRemove.forEach(btn => {
         btn.onclick = e => {
@@ -191,7 +177,77 @@ function addEventClickRemove(){
     })
 }
 
-//Gerando a lista via GET dos produtos cadastrados
+//Adicionando evento de click no botão de remoção de cliente
+function addEventClickRemoveClient(){
+    const btnsRemove = document.querySelectorAll('.btnRemoveClient')
+
+    btnsRemove.forEach(btn => {
+        btn.onclick = e => {
+            const id = e.target.dataset.id
+
+            fetch(api + `/clientes/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    return response.json().then(data => {
+                        if(data.message === 'success'){
+                            generateListClients()
+                        }
+                    })
+                })
+        }
+    })
+}
+
+//Adicionando evento de click no botão de remoção de pedido
+function addEventCLickRemoveRequest(){
+    const btnsRemove = document.querySelectorAll('.btnRemoveRequest')
+
+    btnsRemove.forEach(btn => {
+        btn.onclick = e => {
+            const id = e.target.dataset.id
+
+            fetch(api + `/pedidos/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    return response.json().then(data => {
+                        if(data.message === 'success'){
+                            generateListRequests()
+                        }
+                    })
+                })
+        }
+    })
+}
+
+//Gerando lista de clientes
+function generateListClients(){
+    fetch(api + '/clientes')
+        .then(response => {
+            return response.json().then(data => {
+                let html = ''
+                data.forEach(client => {
+                    html  += `
+                    <div class="res">
+                        <ul class="list">
+                            <li>Nome: ${client.name}</li>
+                            <li>E-mail: ${client.email}</li>
+                            <li>Endereço: ${client.adress}</li>
+                            <li>
+                                <a href="#" class="btnRemoveClient" data-id="${client._id}">Excluir</a>
+                            </li>
+                        </ul>
+                    </div>
+                    `
+                })
+                divClients.innerHTML = html
+                addEventClickRemoveClient()
+            })
+        })
+}
+
+//Gerando lista de produtos cadastrados
 function generateListProducts(){
     fetch(api + '/produtos')
         .then(response => {
@@ -207,14 +263,61 @@ function generateListProducts(){
                             <li>Nome: ${product.name}</li>
                             <li>Preço: ${price}</li>
                             <li>
-                                <a href="#" class="btnRemove" data-id="${product._id}">[Excluir]</a>
+                                <a href="#" class="btnRemoveProduct" data-id="${product._id}">[Excluir]</a>
                             </li>
                         </ul>
                     </div>
                     `
                 })
                 divProductsList.innerHTML = html
-                addEventClickRemove()
+                addEventClickRemoveProduct()
+            })
+        })
+}
+
+//Gerando lista de pedidos
+function generateListRequests(){
+    fetch(api + '/pedidos')
+        .then(response => {
+            return response.json().then(data => {
+                let html = ''
+                data.forEach(request => {
+                    html += `
+                    <div>
+                        <ul class="list">
+                            <li>Cliente (id): ${request.idClient}</li>
+                            <li>Produto (id): ${request.idProduct}</li>
+                            <li>Data: ${request.date}</li>
+                            <li>Status: ${request.status}</li>
+                            <li>Alterar status: 
+                                <select class="select" data-id="${request._id}">
+                                    <option value"pendente" selected>--Selecione--</option>
+                                    <option value"pendente">Pendente</option>
+                                    <option value"em preparo">Em preparo</option>
+                                    <option value"em entrega">Em entrega</option>
+                                    <option value"entregue">Entregue</option>
+                                    <option value"cancelado">Cancelado</option>
+                                </select>
+                            </li>
+                            <li>
+                                <a href=# class="btnRemoveRequest" data-id="${request._id}">Excluir</a>
+                            </li>
+                        </ul>
+                    </div>
+                    `
+                })
+                divRequests.innerHTML = html
+                addEventCLickRemoveRequest()
+
+                const allSelect = document.querySelectorAll('.select')
+                allSelect.forEach(select => {
+                    select.onchange = (e) => {
+                        const id = e.target.dataset.id
+                        const valueSelected = select.options[select.selectedIndex].value
+
+                        addOnSelect(valueSelected, id)  
+                    }
+                })       
             })
         })
 }

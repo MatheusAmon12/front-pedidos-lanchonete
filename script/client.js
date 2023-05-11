@@ -3,6 +3,7 @@ const registerSuccess = document.querySelector('.registerSuccess')
 
 const api = "http://localhost:8080/lanchonete"
 let listEmail = []
+let listTel = []
 
 //Buscando clientes cadastrados e validando email
 formRegisterClient.onsubmit = e => {
@@ -18,12 +19,18 @@ formRegisterClient.onsubmit = e => {
             return response.json().then(data => {
                 data.forEach(client => {
                     listEmail.push(client.email)
+                    listTel.push(client.tel)
                 })
                 if(listEmail.includes(email)){
                     setTimeout(() => {
                         registerSuccess.innerHTML = ''
                     }, 2000);
                     registerSuccess.innerHTML = 'Erro! E-mail já cadastrado!'
+                } else if(listTel.includes(parseInt(tel))){
+                    setTimeout(() => {
+                        registerSuccess.innerHTML = ''
+                    }, 2000);
+                    registerSuccess.innerHTML = 'Erro! Telefone já cadastrado!'
                 } else{
                     addClient(name, email, tel, adress)
                 }
